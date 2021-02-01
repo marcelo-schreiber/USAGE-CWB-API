@@ -31,22 +31,23 @@ import { parseData } from '../utils/parseData';
 import { FaAngleLeft } from 'react-icons/fa';
 
 function Graphs({ all, week, month, last }) {
-  const [data, setData] = useState(parseData(all));
   const [filter, setFilter] = useState('Última semana');
   const [xDimension, setXDimension] = useState(0);
 
+  let data;
+
   switch (filter) {
     case 'Todas':
-      setData(parseData(all));
+      data = parseData(all);
       break;
     case 'Última semana':
-      setData(parseData(week));
+      data = parseData(week);
       break;
     case 'Último mês':
-      setData(parseData(month));
+      data = parseData(month);
       break;
     default:
-      setData(parseData(all));
+      data = parseData(all);
       break;
   }
 
