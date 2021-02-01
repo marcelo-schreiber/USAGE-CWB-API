@@ -1,5 +1,5 @@
-import React from "react";
-import Head from "next/head";
+import React from 'react';
+import Head from 'next/head';
 
 function Layout({ title, children }) {
   return (
@@ -17,7 +17,10 @@ function Layout({ title, children }) {
 
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Veja como Curitiba lida com o corona vírus." />
+        <meta
+          name="description"
+          content="Veja como Curitiba lida com o corona vírus."
+        />
         <meta
           name="keywords"
           content="covid, corona, virus, cwb, curitiba, dados, estatística"

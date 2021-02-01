@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 import {
   ArgumentAxis,
@@ -10,34 +10,43 @@ import {
   Title,
   Legend,
   Tooltip,
-} from "@devexpress/dx-react-chart-material-ui";
-import Paper from "@material-ui/core/Paper";
-import { EventTracker, HoverState, Stack, Animation } from "@devexpress/dx-react-chart";
+} from '@devexpress/dx-react-chart-material-ui';
+import Paper from '@material-ui/core/Paper';
+import {
+  EventTracker,
+  HoverState,
+  Stack,
+  Animation,
+} from '@devexpress/dx-react-chart';
 
-import Layout from "../components/Layout";
-import { GraphsContainer, MainTitle, Selection, HeaderContainer } from "../styles/Graphs";
-import { parseData } from "../utils/parseData";
+import Layout from '../components/Layout';
+import {
+  GraphsContainer,
+  MainTitle,
+  Selection,
+  HeaderContainer,
+} from '../styles/Graphs';
+import { parseData } from '../utils/parseData';
 
-import { FaAngleLeft } from "react-icons/fa";
+import { FaAngleLeft } from 'react-icons/fa';
 
 function Graphs({ all, week, month, last }) {
-  const [filter, setFilter] = useState("Todas");
+  const [data, setData] = useState(parseData(all));
+  const [filter, setFilter] = useState('Última semana');
   const [xDimension, setXDimension] = useState(0);
 
-  let data;
-
   switch (filter) {
-    case "Todas":
-      data = parseData(all);
+    case 'Todas':
+      setData(parseData(all));
       break;
-    case "Última semana":
-      data = parseData(week);
+    case 'Última semana':
+      setData(parseData(week));
       break;
-    case "Último mês":
-      data = parseData(month);
+    case 'Último mês':
+      setData(parseData(month));
       break;
     default:
-      data = parseData(all);
+      setData(parseData(all));
       break;
   }
 
@@ -48,10 +57,10 @@ function Graphs({ all, week, month, last }) {
   useEffect(() => {
     updateDimension();
 
-    window.addEventListener("resize", updateDimension);
+    window.addEventListener('resize', updateDimension);
 
     return () => {
-      window.removeEventListener("resize", updateDimension);
+      window.removeEventListener('resize', updateDimension);
     };
   }, []);
 
@@ -61,19 +70,19 @@ function Graphs({ all, week, month, last }) {
         <FaAngleLeft
           size={36}
           color="#fafafa"
-          style={{ position: "absolute", top: 5, left: 5, cursor: "pointer" }}
+          style={{ position: 'absolute', top: 5, left: 5, cursor: 'pointer' }}
         />
       </Link>
       <HeaderContainer>
         <MainTitle>Curitiba | Bandeira {last.flag} </MainTitle>
-        <Selection onChange={e => setFilter(e.target.value)} value={filter}>
+        <Selection onChange={(e) => setFilter(e.target.value)} value={filter}>
           <option>Todas</option>
           <option>Última semana</option>
           <option>Último mês</option>
         </Selection>
       </HeaderContainer>
       <GraphsContainer>
-        <Paper elevation={4} style={{ width: "90%", marginBottom: "8.5rem" }}>
+        <Paper elevation={4} style={{ width: '90%', marginBottom: '8.5rem' }}>
           <Chart data={data}>
             <ArgumentAxis showLabels={xDimension > 830} />
             <ValueAxis showGrid={true} showTicks={true} />
@@ -104,7 +113,7 @@ function Graphs({ all, week, month, last }) {
             <Animation duration={500} />
           </Chart>
         </Paper>
-        <Paper elevation={4} style={{ width: "90%" }}>
+        <Paper elevation={4} style={{ width: '90%' }}>
           <Chart data={data}>
             <ArgumentAxis showLabels={xDimension > 830} />
             <ValueAxis showGrid={true} showTicks={true} />
@@ -132,7 +141,7 @@ function Graphs({ all, week, month, last }) {
             <Animation duration={1500} />
           </Chart>
         </Paper>
-        <Paper elevation={4} style={{ width: "90%", margin: "8.5rem 0rem" }}>
+        <Paper elevation={4} style={{ width: '90%', margin: '8.5rem 0rem' }}>
           <Chart data={data}>
             <ArgumentAxis showLabels={xDimension > 830} />
             <ValueAxis showGrid={true} showTicks={true} />
@@ -152,7 +161,9 @@ function Graphs({ all, week, month, last }) {
             <HoverState />
 
             <Tooltip
-              contentComponent={props => <Tooltip.Content text={`${props.text}%`} />}
+              contentComponent={(props) => (
+                <Tooltip.Content text={`${props.text}%`} />
+              )}
             />
 
             <Animation duration={2500} />
@@ -165,7 +176,9 @@ function Graphs({ all, week, month, last }) {
 
 export async function getStaticProps() {
   const all = await fetch(`https://cwb-covid.herokuapp.com/api/all`);
-  const week = await fetch(`https://cwb-covid.herokuapp.com/api/filter?offset=0&limit=7`);
+  const week = await fetch(
+    `https://cwb-covid.herokuapp.com/api/filter?offset=0&limit=7`
+  );
   const month = await fetch(
     `https://cwb-covid.herokuapp.com/api/filter?offset=0&limit=30`
   );

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Header = styled.header`
   display: flex;
@@ -9,7 +9,7 @@ export const Header = styled.header`
 `;
 
 export const TitleLogo = styled.h1`
-  font-family: "Lobster", "Avner", "Segoe Script", "Kunstler Script", cursive;
+  font-family: 'Lobster', 'Avner', 'Segoe Script', 'Kunstler Script', cursive;
   font-size: 4.265rem;
   letter-spacing: 0.04em;
 
