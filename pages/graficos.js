@@ -85,7 +85,7 @@ function Graphs({ all, week, month, last }) {
       <GraphsContainer>
         <Paper elevation={4} style={{ width: '90%', marginBottom: '8.5rem' }}>
           <Chart data={data}>
-            <ArgumentAxis showLabels={xDimension > 830} />
+            <ArgumentAxis showLabels={filter !== 'Todas' && xDimension > 600} />
             <ValueAxis showGrid={true} showTicks={true} />
 
             <Legend />
