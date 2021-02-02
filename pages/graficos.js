@@ -28,7 +28,7 @@ import {
 } from '../styles/Graphs';
 import { parseData } from '../utils/parseData';
 
-import { FaAngleLeft } from 'react-icons/fa';
+import { FaAngleLeft, FaFlag } from 'react-icons/fa';
 
 function Graphs({ all, week, month, last }) {
   const [filter, setFilter] = useState('Última semana');
@@ -65,6 +65,16 @@ function Graphs({ all, week, month, last }) {
     };
   }, []);
 
+  const renderFlag = (currColor) => {
+    if (currColor === 'amarela') {
+      return '#F7C335';
+    } else if (currColor === 'laranja') {
+      return '#E67D22';
+    } else {
+      return '#F18685';
+    }
+  };
+
   return (
     <Layout title="Dados">
       <Link href="/" passHref={true}>
@@ -75,7 +85,10 @@ function Graphs({ all, week, month, last }) {
         />
       </Link>
       <HeaderContainer>
-        <MainTitle>Curitiba | Bandeira {last.flag} </MainTitle>
+        <MainTitle>
+          Curitiba | Bandeira {last.flag}{' '}
+          <FaFlag color={`${renderFlag(last.flag)}`} size={24} />
+        </MainTitle>
         <Selection onChange={(e) => setFilter(e.target.value)} value={filter}>
           <option>Todas</option>
           <option>Última semana</option>
